@@ -5,6 +5,7 @@ import * as cors from 'cors';
 import axios from 'axios';
 import * as mongoose from 'mongoose';
 import Product from './models/Product';
+import config from './config';
 
 const app = express();
 app.use(helmet());
@@ -46,12 +47,11 @@ app.post('/save', async (req, res) => {
     res.send(products);
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://root:1mbitubA@ds239692.mlab.com:39692/mercado-libre-watch', { useNewUrlParser: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+mongoose.connect(config.mongodburi, { useNewUrlParser: true });
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+mongoose.connection.once('open', function () {
     app.listen(PORT, () => {
         console.log(`Running on port [${PORT}]`)
     })
