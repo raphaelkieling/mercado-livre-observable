@@ -1,0 +1,28 @@
+{
+  "name": "Watch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.1",
+    "@types/helmet": "^0.0.44",
+    "@types/node": "^12.7.8",
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crawler": "^1.2.1",
+    "express": "^4.17.1",
+    "helmet": "^3.21.1",
+    "mercadolibre": "^0.0.13"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3"
+  }
+}
