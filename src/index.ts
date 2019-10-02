@@ -58,6 +58,7 @@ app.post('/save', async (req, res) => {
             currency: item.currency_id,
             quantity: item.available_quantity,
             link: item.permalink,
+            thumbnail: item.thumbnail,
             price_history: [
                 {
                     price: item.price,
