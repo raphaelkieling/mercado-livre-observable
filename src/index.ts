@@ -81,8 +81,8 @@ mongoose.connection.once('open', onOpenConnection);
 
 function onOpenConnection() {
     app.listen(PORT, () => {
-        console.log(`Running on port [${PORT}]`)
-    })
+        console.log(`Running on port [${PORT}]`);
+    });
 
     new CronJob('1 * * * * *', function () {
         console.log("[LOG]: cronjob");
