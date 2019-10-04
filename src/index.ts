@@ -39,6 +39,13 @@ app.get('/search', async (req, res) => {
     res.send(data.results);
 });
 
+app.delete('/item/:id', async (req, res) => {
+    const { id } = req.params;
+    let product = await Product.findById(id);
+    await product.remove();
+    res.send(product);
+})
+
 app.post('/save', async (req, res) => {
     const { user_email } = req.headers;
     const { data } = await request().get(`items?ids=${req.query.ids}`);
@@ -84,27 +91,28 @@ function onOpenConnection() {
         console.log(`Running on port [${PORT}]`);
     });
 
-    new CronJob('1 * * * * *', function () {
+
+    new CronJob('* 1 * * * *', function () {
         console.log("[LOG]: cronjob");
 
         Product.find(async (err, products: any[]) => {
+            console.log('[FINDED]: ' + products.length)
             for (let product of products) {
                 const { data } = await request().get(`items?id=${product.id}`);
 
-                if (product.last_price == data.price) {
-                    console.log('[IGNORE]: Same price')
-                    return;
+                if (product.last_price != data.price) {
+                    product.last_price = product.price;
+                    product.price = data.price;
+                    product.quantity = data.available_quantity;
+                    product.price_history.push({
+                        price: product.price,
+                        date: Date.now()
+                    });
+
+                    await product.save();
                 }
 
-                product.last_price = product.price;
-                product.price = data.price;
-                product.quantity = data.available_quantity;
-                product.price_history.push({
-                    price: product.price,
-                    date: Date.now()
-                });
-
-                await product.save();
+                console.log('[IGNORE]: Same price')
             }
         })
     }, null, true, 'America/Sao_Paulo');
