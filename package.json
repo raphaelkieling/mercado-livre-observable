@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "crawler": "^1.2.1",
     "cron": "^1.7.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "helmet": "^3.21.1",
     "mercadolibre": "^0.0.13",
     "mongoose": "^5.7.3",
